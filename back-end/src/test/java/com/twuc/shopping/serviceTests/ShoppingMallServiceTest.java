@@ -35,6 +35,7 @@ class ShoppingMallServiceTest {
     @Test
     void shouldGetAllProductsSuccess() {
         verify(shoppingMallRepo).getAllProducts();
+        verify(shoppingMallService).getAllProducts();
 
         assertEquals("cola",shoppingMallRepo.getAllProducts().get(0).getName());
     }

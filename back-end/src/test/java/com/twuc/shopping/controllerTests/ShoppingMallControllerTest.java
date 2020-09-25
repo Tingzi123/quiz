@@ -38,7 +38,7 @@ class ShoppingMallControllerTest {
 
     @Test
     void shouldGetAllProducts() throws Exception {
-        mockMvc.perform(get("/user/register")
+        mockMvc.perform(get("/product")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))

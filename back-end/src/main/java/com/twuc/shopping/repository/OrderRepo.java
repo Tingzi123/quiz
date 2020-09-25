@@ -11,7 +11,7 @@ import java.util.List;
 public class OrderRepo {
     public static List<Order> orders=new ArrayList<>();
 
-    public List<Order> getAllOrder(){
+    public List<Order> getAllOrders(){
         return orders;
     }
 
