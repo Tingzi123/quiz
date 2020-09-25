@@ -1,9 +1,9 @@
 package com.twuc.shopping.serviceTests;
 
+import com.twuc.shopping.dto.Order;
+import com.twuc.shopping.dto.Product;
 import com.twuc.shopping.repository.OrderRepo;
-import com.twuc.shopping.repository.ShoppingMallRepo;
 import com.twuc.shopping.service.OrderService;
-import com.twuc.shopping.service.ShoppingMallService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -30,5 +30,13 @@ public class OrderServiceTest {
         verify(orderService).getAllOrders();
 
         assertEquals("cola",orderRepo.getAllOrders().get(0).getProduct().getName());
+    }
+
+    @Test
+    void shouldAddOrderSuccess() {
+        Order order=new Order(1,new Product(1,"./cola.png","cola",3));
+
+        verify(orderRepo).addOrder(order);
+        verify(orderService).addOrder(order);
     }
 }

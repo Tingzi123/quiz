@@ -18,4 +18,8 @@ public class OrderService {
         return orderRepo.getAllOrders();
     }
 
+    public void addOrder(Order order){
+        orderRepo.addOrder(order);
+    }
+
 }
