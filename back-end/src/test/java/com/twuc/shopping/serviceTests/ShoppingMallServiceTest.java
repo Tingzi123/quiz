@@ -1,6 +1,7 @@
 package com.twuc.shopping.serviceTests;
 
 import com.twuc.shopping.dto.Product;
+import com.twuc.shopping.entity.ProductEntity;
 import com.twuc.shopping.repository.ShoppingMallRepo;
 import com.twuc.shopping.service.ShoppingMallService;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,18 +26,27 @@ class ShoppingMallServiceTest {
 
     @Test
     void shouldAddProductSuccess() {
-        Product product=new Product(1,"./cola.png","cola",3);
+        Product product=new Product(1,"./cola.png","cola",3,"瓶",1);
 
-        verify(shoppingMallRepo).addProduct(product);
+        ProductEntity productEntity=ProductEntity.builder()
+                .name(product.getName())
+                .imgSrc(product.getImgSrc())
+                .price(product.getPrice())
+                .unit(product.getUnit())
+                .build();
 
-        assertEquals("cola",shoppingMallRepo.products.get(0).getName());
+        shoppingMallService.addProduct(product);
+        verify(shoppingMallRepo).save(productEntity);
+
+        assertEquals("cola",shoppingMallRepo.findAll().get(0).getName());
     }
 
     @Test
     void shouldGetAllProductsSuccess() {
-        verify(shoppingMallRepo).getAllProducts();
+        shoppingMallService.getAllProducts();
+        verify(shoppingMallRepo).findAll();
         verify(shoppingMallService).getAllProducts();
 
-        assertEquals("cola",shoppingMallRepo.getAllProducts().get(0).getName());
+        assertEquals("cola",shoppingMallRepo.findAll().get(0).getName());
     }
 }

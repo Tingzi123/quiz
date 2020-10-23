@@ -18,34 +18,46 @@ public class OrderService {
         this.orderRepo = orderRepo;
     }
 
-    public List<Order> getAllOrders(){
+    public List<Order> getAllOrders() {
         return orderRepo.findAll().stream().map(orderEntity -> {
-            Product product=Product.builder()
-                    .imgSrc(orderEntity.getProduct().getImgSrc())
-                    .name(orderEntity.getProduct().getName())
-                    .price(orderEntity.getProduct().getPrice())
-                    .unit(orderEntity.getProduct().getUnit())
-                    .build();
+            List<Product> products = orderEntity.getProducts().stream().map(productEntity -> {
+                Product product = Product.builder()
+                        .imgSrc(productEntity.getImgSrc())
+                        .name(productEntity.getName())
+                        .price(productEntity.getPrice())
+                        .unit(productEntity.getUnit())
+                        .num(productEntity.getNum())
+                        .build();
+                return product;
+            }).collect(Collectors.toList());
 
-            Order order=Order.builder()
-                    .num(orderEntity.getNum())
-                    .product(product)
+
+            Order order = Order.builder()
+                    .products(products)
                     .build();
             return order;
         }).collect(Collectors.toList());
     }
 
-    public void addOrder(Order order){
-        ProductEntity productEntity=ProductEntity.builder()
-                .imgSrc(order.getProduct().getImgSrc())
-                .name(order.getProduct().getName())
-                .price(order.getProduct().getPrice())
-                .unit(order.getProduct().getUnit())
-                .build();
+    public void addOrder(Order order) {
+        List<ProductEntity> productEntities=order.getProducts().stream().map(product -> {
+            ProductEntity productEntity = ProductEntity.builder()
+                    .imgSrc(product.getImgSrc())
+                    .name(product.getName())
+                    .price(product.getPrice())
+                    .unit(product.getUnit())
+                    .num(product.getNum())
+                    .build();
+            return productEntity;
+        }).collect(Collectors.toList());
+
 
         orderRepo.save(OrderEntity.builder()
-                .num(order.getNum())
-                .product(productEntity)
+                .products(productEntities)
                 .build());
+    }
+
+    public void deletedOrders(int orderId) {
+        orderRepo.deleteById(orderId);
     }
 }

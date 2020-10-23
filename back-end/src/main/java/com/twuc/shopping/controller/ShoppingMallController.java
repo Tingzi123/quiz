@@ -2,6 +2,7 @@ package com.twuc.shopping.controller;
 
 import com.twuc.shopping.dto.Product;
 import com.twuc.shopping.service.ShoppingMallService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,12 +19,13 @@ public class ShoppingMallController {
     }
 
     @PostMapping("/product")
-    public void addProduct(@RequestBody Product product){
+    public ResponseEntity addProduct(@RequestBody Product product){
         shoppingMallService.addProduct(product);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/products")
-    public List<Product> getAllProducts(){
-        return shoppingMallService.getAllProducts();
+    public ResponseEntity<List<Product>> getAllProducts(){
+        return ResponseEntity.ok().body(shoppingMallService.getAllProducts());
     }
 }

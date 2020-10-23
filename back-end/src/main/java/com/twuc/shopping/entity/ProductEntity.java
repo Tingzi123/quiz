@@ -1,12 +1,12 @@
 package com.twuc.shopping.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -27,6 +27,9 @@ public class ProductEntity {
 
     String unit;
 
-    @OneToMany(mappedBy = "product", orphanRemoval = true)
-    List<OrderEntity> orders;
+    Integer num;
+
+    @ManyToOne
+    @JsonIgnore
+    OrderEntity order;
 }

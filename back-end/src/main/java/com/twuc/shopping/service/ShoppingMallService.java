@@ -30,6 +30,7 @@ public class ShoppingMallService {
     public List<Product> getAllProducts(){
         return shoppingMallRepo.findAll().stream().map(productEntity -> {
             Product product= Product.builder()
+                    .id(productEntity.getId())
                     .name(productEntity.getName())
                     .imgSrc(productEntity.getImgSrc())
                     .price(productEntity.getPrice())

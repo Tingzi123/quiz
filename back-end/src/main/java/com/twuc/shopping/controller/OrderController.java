@@ -1,13 +1,9 @@
 package com.twuc.shopping.controller;
 
 import com.twuc.shopping.dto.Order;
-import com.twuc.shopping.dto.Product;
 import com.twuc.shopping.service.OrderService;
-import com.twuc.shopping.service.ShoppingMallService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,13 +15,21 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/order")
-    public void addProduct(@RequestBody Order order){
+    @PostMapping(value = "/order")
+    public ResponseEntity addProduct(@RequestBody Order order){
         orderService.addOrder(order);
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/orders")
-    public List<Order> getAllOrders(){
-        return orderService.getAllOrders();
+    @GetMapping(value = "/orders")
+    public ResponseEntity<List<Order>> getAllOrders(){
+        return ResponseEntity.ok().body(orderService.getAllOrders());
+    }
+
+    @PostMapping(value = "/{orderId}/order")
+    public ResponseEntity deletedOrders(@PathVariable("orderId") String orderId){
+        int id=Integer.parseInt(orderId);
+        orderService.deletedOrders(id);
+        return ResponseEntity.ok().build();
     }
 }

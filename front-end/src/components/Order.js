@@ -22,6 +22,21 @@ class Order extends Component {
        .catch(e => console.log("error", e))
   }
 
+  onDeleted(orderId){
+    fetch('http://localhost:8080/'+orderId+'order',{
+           method:"POST",
+           headers:{
+               "Content-type":"application/json"
+           },
+           body:JSON.stringify(orderId)
+       })
+       .then(res =>res.json())
+       .then(data =>{
+          console.log(data)
+       })
+       .catch(e => console.log("error", e))
+  }
+
 
   render() {
     return (
@@ -40,7 +55,7 @@ class Order extends Component {
             <li>{order.price}</li>,
             <li>{order.num}</li>,
             <li>{order.desc}</li>,
-            <button>删除</button>
+            <button onClick={onDeleted(order.orderId)}>删除</button>
             })}
           </ul>
         

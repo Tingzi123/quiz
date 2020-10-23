@@ -24,7 +24,7 @@ class ShoppingMallControllerTest {
 
     @Test
     void shouldAddProductSuccess() throws Exception {
-        Product product=new Product(1,"./cola.png","cola",3);
+        Product product=new Product(1,"./cola.png","cola",3,"瓶",1);
         ObjectMapper objectMapper=new ObjectMapper();
         String json=objectMapper.writeValueAsString(product);
 

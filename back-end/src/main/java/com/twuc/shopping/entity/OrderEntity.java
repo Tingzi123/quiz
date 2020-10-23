@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "`order`")
@@ -19,9 +21,7 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    Integer num;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    ProductEntity product;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Size(min = 1)
+    List<ProductEntity> products;
 }
