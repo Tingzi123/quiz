@@ -7,7 +7,8 @@ class AddProduct extends Component {
         name: "",
         price: "",
         desc:"",
-        img:""
+        img:"",
+        unit:""
       };
     
       handleFieldChange = (field, e) => {
@@ -23,7 +24,8 @@ class AddProduct extends Component {
           name:this.state.name,
           price:this.state.price,
           desc:this.state.desc,
-          img:this.state.img
+          img:this.state.img,
+          unit:this.state.unit
        }
 
        fetch('http://localhost:8080/product',{
@@ -70,13 +72,13 @@ class AddProduct extends Component {
           </div>
 
           <div className="form-group">
-            <label htmlFor="desc">单位：</label>
+            <label htmlFor="unit">单位：</label>
             <input
               type="text"
               className="form-control"
               id="desc"
               value={this.state.desc}
-              onChange={(e)=>this.handleFieldChange("desc",e)}
+              onChange={(e)=>this.handleFieldChange("unit",e)}
             ></input>
           </div>
 

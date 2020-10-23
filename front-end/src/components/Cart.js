@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import '../App.css';
-import Cart from "./Cart";
 
 class Home extends Component {
   state={
@@ -24,7 +23,7 @@ class Home extends Component {
   }
 
   onChecked(product){
-    fetch('http://localhost:8080/cart',{
+    fetch('http://localhost:8080/order',{
            method:"POST",
            headers:{
                "Content-type":"application/json"
@@ -38,18 +37,23 @@ class Home extends Component {
        .catch(e => console.log("error", e))
   }
 
+  onClear(){
+    this.setState({
+        products:''
+       })
+  }
+
 
   render() {
     return (
       <div className="home">
         {this.state.products.forEach(index,product=>{
-          <p id={index}>{product.img}</p>,
           <p>{product.name}</p>,
-          <p>单价：{product.price}/{product.unit}</p>,
-          <button onClick={onChecked(product)}>添加购物车</button>
+          <p>数量{product.num}</p>,
+          <button onClick={()=>onChecked(product)}>立即下单</button>,
+          <button onClick={onClear}>清空</button>
         })}
         
-        <Cart/>
       </div>
     );
   }

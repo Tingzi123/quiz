@@ -43,7 +43,6 @@ class Order extends Component {
             <button>删除</button>
             })}
           </ul>
-       
         
       </div>
     );
