@@ -19,7 +19,7 @@ public class OrderService {
     }
 
     public List<Order> getAllOrders(){
-        return orderRepo.getAllOrders().stream().map(orderEntity -> {
+        return orderRepo.findAll().stream().map(orderEntity -> {
             Product product=Product.builder()
                     .imgSrc(orderEntity.getProduct().getImgSrc())
                     .name(orderEntity.getProduct().getName())

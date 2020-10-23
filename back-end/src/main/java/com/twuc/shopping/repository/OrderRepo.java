@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface OrderRepo extends CrudRepository<OrderEntity, Integer> {
-    List<OrderEntity> getAllOrders();
+    List<OrderEntity> findAll();
 }
